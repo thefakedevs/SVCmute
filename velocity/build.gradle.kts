@@ -9,6 +9,10 @@ plugins {
 group = "dev.baechka"
 version = "1.0-SNAPSHOT"
 
+base {
+    archivesName.set("svcmute-velocity")
+}
+
 repositories {
     mavenCentral()
     maven("https://repo.papermc.io/repository/maven-public/") {
@@ -29,7 +33,6 @@ dependencies {
 
 tasks {
     shadowJar {
-        // Relocate kotlin to avoid conflicts
         relocate("kotlin", "dev.baechka.svcmute.kotlin")
     }
 
