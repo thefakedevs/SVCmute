@@ -1,12 +1,12 @@
-package dev.baechka.SVCMute.mixin;
+package dev.baechka.BucketMute.mixin;
 
 import de.maxhenkel.voicechat.VoicechatClient;
 import de.maxhenkel.voicechat.voice.client.ClientManager;
 import de.maxhenkel.voicechat.voice.client.ClientPlayerStateManager;
 import de.maxhenkel.voicechat.voice.client.GroupChatManager;
 import de.maxhenkel.voicechat.voice.client.RenderEvents;
-import dev.baechka.SVCMute.MuteStateManager;
-import dev.baechka.SVCMute.SVCMute;
+import dev.baechka.BucketMute.MuteStateManager;
+import dev.baechka.BucketMute.BucketMute;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class MixinRenderEvents {
 
     @Unique
-    private static final ResourceLocation MUTE_ICON = new ResourceLocation(SVCMute.MODID, "textures/icons/mute.png");
+    private static final ResourceLocation MUTE_ICON = new ResourceLocation(BucketMute.MODID, "textures/icons/mute.png");
 
     @Shadow(remap = false)
     private void renderIcon(GuiGraphics guiGraphics, ResourceLocation texture) {

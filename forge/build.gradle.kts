@@ -61,7 +61,7 @@ group = mod_group_id
 version = "$mod_version-${getGitCommitHash()}"
 
 base {
-    archivesName.set("svcmute-forge")
+    archivesName.set("bucketmute-forge")
 }
 
 java {
@@ -102,8 +102,8 @@ minecraft {
 
 
 mixin {
-    add(sourceSets.main.get(), "svcmute.refmap.json")
-    config("svcmute.mixins.json")
+    add(sourceSets.main.get(), "bucketmute.refmap.json")
+    config("bucketmute.mixins.json")
 }
 
 dependencies {
@@ -152,7 +152,7 @@ tasks.withType<Jar> {
                 "Implementation-Version" to project.version,
                 "Implementation-Vendor" to project.property("mod_authors"),
                 "Implementation-Timestamp" to SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").format(Date()),
-                "MixinConfigs" to "svcmute.mixins.json"
+                "MixinConfigs" to "bucketmute.mixins.json"
         ))
     }
 }

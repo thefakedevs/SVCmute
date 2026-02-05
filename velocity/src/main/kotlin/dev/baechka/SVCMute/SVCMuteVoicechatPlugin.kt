@@ -1,4 +1,4 @@
-package dev.baechka.SVCMute
+package dev.baechka.BucketMute
 
 import de.maxhenkel.voicechat.api.VoicechatApi
 import de.maxhenkel.voicechat.api.VoicechatPlugin
@@ -12,14 +12,14 @@ import java.util.function.BiConsumer
 /**
  * Плагин Simple Voice Chat - серверная часть мута.
  */
-class SVCMuteVoicechatPlugin : VoicechatPlugin {
+class BucketMuteVoicechatPlugin : VoicechatPlugin {
 
     companion object {
         var voicechatApi: VoicechatServerApi? = null
             private set
     }
 
-    override fun getPluginId(): String = "svcmute"
+    override fun getPluginId(): String = "bucketmute"
 
     override fun initialize(api: VoicechatApi) {}
 
@@ -32,29 +32,29 @@ class SVCMuteVoicechatPlugin : VoicechatPlugin {
     private fun onServerStarted(event: VoicechatServerStartedEvent) {
         voicechatApi = event.voicechat
 
-        SVCMute.instance.voicechatStateUpdater = BiConsumer { uuid, muted ->
+        BucketMute.instance.voicechatStateUpdater = BiConsumer { uuid, muted ->
             voicechatApi?.getConnectionOf(uuid)?.let { connection ->
                 connection.isDisabled = muted
-                SVCMute.instance.sendMuteStatusToClient(uuid, muted)
+                BucketMute.instance.sendMuteStatusToClient(uuid, muted)
             }
         }
     }
 
     private fun onPlayerConnected(event: PlayerConnectedEvent) {
         val playerUuid = event.connection.player.uuid
-        val isMuted = SVCMute.instance.isMuted(playerUuid)
+        val isMuted = BucketMute.instance.isMuted(playerUuid)
 
         if (isMuted) {
             event.connection.isDisabled = true
         }
 
-        SVCMute.instance.sendMuteStatusToClient(playerUuid, isMuted)
+        BucketMute.instance.sendMuteStatusToClient(playerUuid, isMuted)
     }
 
     private fun onMicrophonePacket(event: MicrophonePacketEvent) {
         val playerUuid = event.senderConnection?.player?.uuid ?: return
 
-        if (SVCMute.instance.isMuted(playerUuid)) {
+        if (BucketMute.instance.isMuted(playerUuid)) {
             event.cancel()
         }
     }

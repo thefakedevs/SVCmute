@@ -1,4 +1,4 @@
-package dev.baechka.SVCMute
+package dev.baechka.BucketMute
 
 import com.mojang.logging.LogUtils
 import de.maxhenkel.voicechat.api.ForgeVoicechatPlugin
@@ -11,16 +11,16 @@ import de.maxhenkel.voicechat.api.events.EventRegistration
  * Плагин Simple Voice Chat - блокирует микрофон при серверном муте.
  */
 @ForgeVoicechatPlugin
-class SVCMuteVoicechatPlugin : VoicechatPlugin {
+class BucketMuteVoicechatPlugin : VoicechatPlugin {
 
     companion object {
         private val LOGGER = LogUtils.getLogger()
     }
 
-    override fun getPluginId(): String = SVCMute.MODID
+    override fun getPluginId(): String = BucketMute.MODID
 
     override fun initialize(api: VoicechatApi) {
-        LOGGER.info("SVCMute voicechat plugin initialized")
+        LOGGER.info("BucketMute voicechat plugin initialized")
     }
 
     override fun registerEvents(registration: EventRegistration) {

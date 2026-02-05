@@ -6,11 +6,22 @@ plugins {
     id("xyz.jpenilla.run-velocity") version "2.3.1"
 }
 
+fun getGitCommitHash(): String {
+    return try {
+        val stdout = providers.exec {
+            commandLine("git", "rev-parse", "--short", "HEAD")
+        }.standardOutput.asText.get()
+        stdout.trim()
+    } catch (_: Exception) {
+        "unknown"
+    }
+}
+
 group = "dev.baechka"
-version = "1.0-SNAPSHOT"
+version = "1.0.0-${getGitCommitHash()}"
 
 base {
-    archivesName.set("svcmute-velocity")
+    archivesName.set("bucketmute-velocity")
 }
 
 repositories {
@@ -33,7 +44,7 @@ dependencies {
 
 tasks {
     shadowJar {
-        relocate("kotlin", "dev.baechka.svcmute.kotlin")
+        relocate("kotlin", "dev.baechka.bucketmute.kotlin")
     }
 
     runVelocity {

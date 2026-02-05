@@ -1,4 +1,4 @@
-package dev.baechka.SVCMute
+package dev.baechka.BucketMute
 
 import com.google.inject.Inject
 import com.velocitypowered.api.command.CommandSource
@@ -22,25 +22,25 @@ import java.util.concurrent.TimeUnit
 import java.util.function.BiConsumer
 
 @Plugin(
-    id = "svcmute",
-    name = "SVCMute",
+    id = "bucketmute",
+    name = "BucketMute",
     version = BuildConstants.VERSION,
     dependencies = [
         Dependency(id = "voicechat"),
         Dependency(id = "luckperms")
     ]
 )
-class SVCMute @Inject constructor(
+class BucketMute @Inject constructor(
     val logger: Logger,
     private val server: ProxyServer
 ) {
 
     companion object {
-        lateinit var instance: SVCMute
+        lateinit var instance: BucketMute
             private set
 
         val MUTE_STATUS_CHANNEL: MinecraftChannelIdentifier =
-            MinecraftChannelIdentifier.create("svcmute", "mute_status")
+            MinecraftChannelIdentifier.create("bucketmute", "mute_status")
     }
 
     private val mutedPlayers = ConcurrentHashMap<UUID, Long>()
@@ -59,17 +59,17 @@ class SVCMute @Inject constructor(
         server.channelRegistrar.register(MUTE_STATUS_CHANNEL)
 
         server.commandManager.register(
-            server.commandManager.metaBuilder("svcmute").plugin(this).build(),
+            server.commandManager.metaBuilder("bucketmute").plugin(this).build(),
             MuteCommand(this)
         )
 
         server.commandManager.register(
-            server.commandManager.metaBuilder("svcunmute").plugin(this).build(),
+            server.commandManager.metaBuilder("bucketunmute").plugin(this).build(),
             UnmuteCommand(this)
         )
 
         server.commandManager.register(
-            server.commandManager.metaBuilder("svcmutelist").plugin(this).build(),
+            server.commandManager.metaBuilder("bucketmutelist").plugin(this).build(),
             MuteListCommand(this)
         )
 
@@ -78,7 +78,7 @@ class SVCMute @Inject constructor(
             .repeat(1, TimeUnit.SECONDS)
             .schedule()
 
-        logger.info("SVCMute plugin loaded")
+        logger.info("BucketMute plugin loaded")
     }
 
     @Subscribe
@@ -176,14 +176,14 @@ class SVCMute @Inject constructor(
     }
 }
 
-class MuteCommand(private val plugin: SVCMute) : SimpleCommand {
+class MuteCommand(private val plugin: BucketMute) : SimpleCommand {
 
     override fun execute(invocation: SimpleCommand.Invocation) {
         val source = invocation.source()
         val args = invocation.arguments()
         val sourcePlayer = source as? Player
 
-        if (!plugin.hasPermission(source, "svcmute.admin")) {
+        if (!plugin.hasPermission(source, "bucketmute.admin")) {
             val msg = sourcePlayer?.let { Messages.get(it, "no-permission") } ?: Messages.get("no-permission")
             source.sendMessage(Component.text(msg, NamedTextColor.RED))
             return
@@ -287,14 +287,14 @@ class MuteCommand(private val plugin: SVCMute) : SimpleCommand {
     }
 }
 
-class UnmuteCommand(private val plugin: SVCMute) : SimpleCommand {
+class UnmuteCommand(private val plugin: BucketMute) : SimpleCommand {
 
     override fun execute(invocation: SimpleCommand.Invocation) {
         val source = invocation.source()
         val args = invocation.arguments()
         val sourcePlayer = source as? Player
 
-        if (!plugin.hasPermission(source, "svcmute.admin")) {
+        if (!plugin.hasPermission(source, "bucketmute.admin")) {
             val msg = sourcePlayer?.let { Messages.get(it, "no-permission") } ?: Messages.get("no-permission")
             source.sendMessage(Component.text(msg, NamedTextColor.RED))
             return
@@ -347,13 +347,13 @@ class UnmuteCommand(private val plugin: SVCMute) : SimpleCommand {
     }
 }
 
-class MuteListCommand(private val plugin: SVCMute) : SimpleCommand {
+class MuteListCommand(private val plugin: BucketMute) : SimpleCommand {
 
     override fun execute(invocation: SimpleCommand.Invocation) {
         val source = invocation.source()
         val sourcePlayer = source as? Player
 
-        if (!plugin.hasPermission(source, "svcmute.admin")) {
+        if (!plugin.hasPermission(source, "bucketmute.admin")) {
             val msg = sourcePlayer?.let { Messages.get(it, "no-permission") } ?: Messages.get("no-permission")
             source.sendMessage(Component.text(msg, NamedTextColor.RED))
             return

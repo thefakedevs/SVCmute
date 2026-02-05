@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION", "removal")
 
-package dev.baechka.SVCMute
+package dev.baechka.BucketMute
 
 import com.mojang.logging.LogUtils
 import net.minecraftforge.api.distmarker.Dist
@@ -8,16 +8,16 @@ import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.loading.FMLEnvironment
 
-@Mod(SVCMute.MODID)
-class SVCMute {
+@Mod(BucketMute.MODID)
+class BucketMute {
     companion object {
-        const val MODID = "svcmute"
+        const val MODID = "bucketmute"
         private val LOGGER = LogUtils.getLogger()
     }
 
     init {
         if (FMLEnvironment.dist == Dist.CLIENT) {
-            LOGGER.info("SVCMute initializing...")
+            LOGGER.info("BucketMute initializing...")
             NetworkHandler.register()
             MinecraftForge.EVENT_BUS.register(NetworkHandler)
         }

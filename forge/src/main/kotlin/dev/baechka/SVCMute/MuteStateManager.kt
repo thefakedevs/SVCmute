@@ -1,4 +1,4 @@
-package dev.baechka.SVCMute
+package dev.baechka.BucketMute
 
 import com.mojang.logging.LogUtils
 

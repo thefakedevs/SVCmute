@@ -1,4 +1,4 @@
-package dev.baechka.SVCMute
+package dev.baechka.BucketMute
 
 import com.mojang.logging.LogUtils
 import net.minecraft.client.Minecraft
@@ -13,13 +13,13 @@ import net.minecraftforge.network.NetworkRegistry
 
 /**
  * Обработчик сетевых пакетов для получения статуса мута с сервера.
- * Канал: "svcmute:mute_status", формат: 1 байт (0x00 = unmuted, 0x01 = muted)
+ * Канал: "bucketmute:mute_status", формат: 1 байт (0x00 = unmuted, 0x01 = muted)
  */
 @OnlyIn(Dist.CLIENT)
-@Mod.EventBusSubscriber(modid = SVCMute.MODID, value = [Dist.CLIENT])
+@Mod.EventBusSubscriber(modid = BucketMute.MODID, value = [Dist.CLIENT])
 object NetworkHandler {
     private val LOGGER = LogUtils.getLogger()
-    private val CHANNEL_ID = ResourceLocation("svcmute", "mute_status")
+    private val CHANNEL_ID = ResourceLocation("bucketmute", "mute_status")
 
     fun register() {
         LOGGER.info("Registering network channel: {}", CHANNEL_ID)

@@ -6,7 +6,7 @@ pluginManagement {
     }
 }
 
-rootProject.name = "SVCMute"
+rootProject.name = "BucketMute"
 
 include("velocity")
 include("forge")
